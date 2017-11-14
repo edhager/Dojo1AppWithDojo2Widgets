@@ -1,51 +1,67 @@
 define([
-	'put-selector/put',
+	'dojo/_base/declare',
 	'@dojo/widget-core/WidgetBase',
 	'@dojo/widgets/button/Button',
 	'@dojo/widget-core/d',
 	'@dojo/widget-core/mixins/Projector',
-	'@dojo/widgets/themes/dojo/theme',
+	'dijit/form/Button',
+	'put-selector/put',
 	'./Tab'
-], function(put, WidgetBase, Button, d, Projector, theme, Tab) {
+], function (declare, WidgetBase, Button2, d, Projector, Button, put, Tab) {
 	var w = d.w;
 	var v = d.v;
 	var ProjectorMixin = Projector.ProjectorMixin;
-	var dojoTheme = theme.dojoTheme;
-	var Dojo2Button = Button.default;
+	var Dojo2Button = Button2.default;
+
+	function makeButtonLabel(count) {
+		return 'Clicked ' + count + ' times';
+	}
 
 	return Tab.createSubclass({
-		title: 'Tab 2',
+		title: 'Button Label Changes',
 
-		_statusNode: null,
-
-		buildRendering: function() {
+		buildRendering: function () {
 			this.inherited(arguments);
 
+			this.renderDojo1Button();
+			this.renderDojo2Button();
+		},
+
+		renderDojo1Button: function () {
 			var domNode = this.domNode;
-			var statusNode;
-			var buttonWidget;
+			var clickCount = 0;
 
-			put(domNode, 'h1', 'Welcome to Tab 1!');
-			this.renderButton(put(domNode, 'div'));
-			this._statusNode = put(domNode, 'ol.status');
+			var buttonWidget = new Button({
+				label: makeButtonLabel(clickCount)
+			});
+			buttonWidget.on('click', function () {
+				clickCount++;
+				buttonWidget.set('label', makeButtonLabel(clickCount));
+			});
+			buttonWidget.placeAt(domNode);
 		},
 
-		addButtonClickStatus: function() {
-			put(this._statusNode, 'li', 'Button was clicked.');
-		},
+		renderDojo2Button: function () {
+			var domNode = this.domNode;
+			var ButtonProjector;
+			var button;
+			var clickCount = 0;
 
-		renderButton: function(rootNode) {
-			var ButtonProjector = ProjectorMixin(WidgetBase.default);
-			var addButtonClickStatus = this.addButtonClickStatus.bind(this);
-			ButtonProjector.prototype.render = function() {
-				console.log('Here!');
-				return w(Dojo2Button, {
-					theme: dojoTheme,
-					onClick: addButtonClickStatus
-				}, [ 'Click Me Too!' ]);
-			};
-			var projector = new ButtonProjector();
-			projector.replace(rootNode);
+			function buttonClickHandler() {
+				clickCount++;
+				button.invalidate();
+			}
+
+			ButtonProjector = declare(ProjectorMixin(WidgetBase.default), {
+				render: function () {
+					return w(Dojo2Button, {
+						onClick: buttonClickHandler
+					}, [ makeButtonLabel(clickCount) ]);
+				}
+			});
+			button = new ButtonProjector();
+			button.append(domNode);
+			this.own(button);
 		}
 	});
 });

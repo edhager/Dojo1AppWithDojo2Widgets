@@ -1,6 +1,16 @@
 .MyApp {
-    height: 500px;
+    height: 400px;
     width: 600px;
+}
+
+.resetButton {
+    cursor: pointer;
+    color: blue;
+    border: 1px solid blue;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    width: 80px;
 }
 
 .Tab {
