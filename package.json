@@ -1,0 +1,22 @@
+{
+  "name": "mydojo1app",
+  "version": "0.0.1",
+  "description": "Incorporate Dojo 2 widgets in a Dojo 1 app",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dojo/core": "^0.1.0",
+    "@dojo/has": "^0.1.0",
+    "@dojo/i18n": "^0.1.0",
+    "@dojo/shim": "^0.1.0",
+    "@dojo/widget-core": "file:./deps/dojo-widget-core-0.2.2-rc.1.tgz",
+    "@dojo/widgets": "file:./deps/dojo-widgets-0.2.1-rc.1.tgz",
+    "dijit": "^1.13.0",
+    "dojo": "^1.13.0",
+    "pepjs": "^0.4.3",
+    "put-selector": "^0.3.6"
+  },
+  "devDependencies": {
+    "intern": "^4.1.1"
+  }
+}

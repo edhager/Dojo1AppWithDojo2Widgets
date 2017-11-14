@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Dojo 1 application with Dojo 2 widgets</title>
+  <link rel="stylesheet" href="node_modules/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="css/myapp.css">
+</head>
+<body class="claro">
+<div id="myapp"></div>
+<script>
+  dojoConfig = {
+	  async: true,
+
+	  packages: [
+		  { name: 'myapp', location: '../../myapp' },
+		  { name: '@dojo', location: '../@dojo' },
+		  { name: 'pepjs', location: '../pepjs/dist', main: 'pep' }
+	  ]
+  }
+</script>
+<script src="node_modules/dojo/dojo.js"></script>
+<script>
+  require([ 'myapp' ], function(myApp) {
+	  myApp.start(document.getElementById('myapp'));
+  });
+</script>
+</body>
+</html>
