@@ -13,6 +13,7 @@
     "@dojo/widgets": "file:./deps/dojo-widgets-0.2.1-rc.1.tgz",
     "dijit": "^1.13.0",
     "dojo": "^1.13.0",
+    "http-server": "^0.10.0",
     "pepjs": "^0.4.3",
     "put-selector": "^0.3.6"
   },
